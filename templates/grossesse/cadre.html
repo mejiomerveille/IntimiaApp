@@ -1,0 +1,234 @@
+{% extends "base.html" %}
+
+{% block head_link %}
+{% load static %}
+<link href="{% static 'app/css/bootstrap.min.css' %}" rel="stylesheet">
+<link href="{% static 'app/css/style.css' %}" rel="stylesheet">
+<link href="{% static 'note/index.css' %}" rel="stylesheet">
+<script src="{% static 'note/jquery.min.js' %}"></script>
+{% endblock %}
+
+{% block title %} {% endblock title %}
+
+{% block content %}
+{% load static %}
+<h1>Semaine actuelle</h1>
+<h3>Periode obstetrique</h3>
+<input type="hidden" name="start_week" value="{{ start_week}}">
+<div class="cadre">
+  {% for i in n %}
+  <div id="semaine{{i}}">
+    <h3 class="mot" style="max-width: 50rem;"><span>{{i}} ème Sem</span></h3>
+  </div>
+  {% endfor %}
+</div>
+
+<!-- imaged -->
+<div class="imge">
+
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    <div class="col">
+      <div class="card h-100">
+        <img id="image1" src="{% static 'app/essai/foetus1.jpg' %}" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">Vous etes a la {{ start_week }}eme semaine de votre grossesse</h5>
+          <!-- <p class="card-text">Vous etes a la "{{ start_week }}" eme semaine de votre grossesse</p> -->
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card h-50">
+        <img id="image2" src="{% static 'app/essai/fruit1.jpg' %}" class="card-img-top " alt="...">
+        <!-- <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <p class="card-text">This is a short card.</p>
+          </div> -->
+      </div>
+    </div>
+    <div class="col">
+      <div class="card h-100">
+        <img id="image3" src="{% static 'app/essai/Screenshot_20230813-133827.png' %}" class="card-img-top" alt="...">
+        <!-- <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+          </div> -->
+      </div>
+    </div>
+  </div>
+
+</div>
+<!-- instruction -->
+<div class="inst">
+  <div class="card text-white bg-success mb-3" style="max-width: 125rem;">
+    <div class="card-header"><h1>Exercice de Kegel</h1></div>
+    <div class="card-body">
+      <h2 class="card-title">une serie d'exercice pour renforcer les muscles pelviens</h2>
+      <h5 class="card-text"><button type="submit">Lancer</button></h5>
+    </div>
+  </div>
+  <div class="card text-white bg-danger mb-3" style="max-width: 125rem;">
+    <div class="card-header"><h1>A propos du bebe</h1></div>
+    <div class="card-body">
+      <h2 class="card-title">Embryon</h2>
+      <h5 class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+        content.</h5>
+    </div>
+  </div>
+  <div class="card text-dark bg-warning mb-3" style="max-width: 125rem;">
+    <div class="card-header"><h1>A propos de vous</h1></div>
+    <div class="card-body">
+      <h2 class="card-title">Maman</h2>
+      <h5 class="card-text">Est-ce que vous savez que lorsque vous vous rendez chez le medecin et que vous pensez etre
+        enceinte de 5 ou 6 semaines , vous etes en realite ...</h5>
+    </div>
+  </div>
+  <div class="card text-dark bg-info mb-3" style="max-width: 125rem;">
+    <div class="card-header"><h1>Nutrition</h1></div>
+    <div class="card-body">
+      <h2 class="card-title">Danger card title</h2>
+      <h5 class="card-text">Cette premiere semaine est le point de depart. Pendant cette periode,vous devez adopter un
+        regime alimentaire permettant d'assurer les meilleurs...</h5>
+    </div>
+  </div>
+  <div class="card text-dark bg-light mb-3" style="max-width: 125rem;">
+    <div class="card-header"> <h1>Recommande</h1></div>
+    <div class="card-body">
+      <h2 class="card-title">Conseil recommande</h2>
+      <h5 class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+        content.</h5>
+    </div>
+  </div>
+
+</div>
+
+
+<!-- note -->
+
+<link rel="stylesheet" href="{% static 'app/note/index.css' %}">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Google Fonts Link For Icons -->
+<link rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+<link rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,1,0" />
+<script src="{% static 'note/index.js' %}" defer></script>
+</head>
+
+<body>
+  <button class="chatbot-toggler">
+    <span class="material-symbols-rounded">Note</span>
+    <span class="material-symbols-outlined">close</span>
+  </button>
+  <div class="chatbot">
+    <header>
+      <h2>Bloc-notes</h2>
+      <span class="close-btn material-symbols-outlined">close</span>
+    </header>
+    <ul class="chatbox">
+      <li class="chat incoming">
+        <span class="material-symbols-outlined">search</span>
+        <input type="text" placeholder="Rechercher des notes">
+      </li>
+    </ul>
+    <div class="chat-input">
+      <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" id="send-btn" >Enregistrer</button>
+      </form>      
+      <textarea placeholder="Prendre des notes..." spellcheck="false" required></textarea>
+      <span id="send-btn" class="material-symbols-rounded">send</span>
+    </div>
+  </div>
+
+
+
+  <style>
+    span {
+      top: 40px;
+    }
+
+    .cadre {
+      display: flex;
+      overflow-x: scroll;
+      cursor: pointer;
+      margin-bottom: 20px;
+    }
+
+    .mot {
+      position: relative;
+      left: 10px;
+      width: 80px;
+      height: 80px;
+      border-radius: 150px;
+      background-color: #dfdcdc;
+      margin: 0 10px;
+      gap: 15px;
+      cursor: pointer;
+    }
+
+    .imge {
+      margin-bottom: 15px;
+    }
+
+    .inst {
+      margin-left: 25px;
+    }
+
+    .active {
+      background-color: orange;
+    }
+  </style>
+  <script>
+    function handler_click_circles(circle,i,previewActive,previewActive) {
+        // Mettre à jour l'image et le texte lorsqu'on clique sur un cercle
+        var foetusImage = document.getElementById("image1");
+        var fruitImage = document.getElementById("image2");
+        var femmeImage = document.getElementById("image3");
+        // console.log(i);
+        foetusImage.src = "../../static/app/essai/images/foetus" + (i + 1) + ".png";
+        fruitImage.src = "../../static/app/essai/images/fruit" + (i + 1) + ".png";
+        femmeImage.src = "../../static/app/essai/images/mois" + (i + 1) + ".png";
+        // console.log("click niveau1");
+        if (circles[previewActive - 1].classList.contains("active")) {
+          circles[previewActive - 1].classList.remove("active");
+        }
+        circle.classList.add("active");
+        previewActive = i + 1;
+        return i + 1
+      }
+
+    console.log("{{n}}");
+    // n = JSON.parse(n)
+    circles = []
+    // let start_week = document.querySelector("input[name=start_week]").value
+    var start_week = parseInt("{{start_week}}")
+    // alert(start_week)
+    for (let i = 1; i <= 40; i++) {
+      idEl = "semaine" + i
+      var circle = document.getElementById(idEl);
+      circles.push(circle);
+    }
+    circles[parseInt(start_week)].classList.add("active")
+    console.log(circles);
+    previewActive = 0;
+    // circles[previewActive - 1].classList.add('active')
+    for (let i = 0; i < circles.length; i++) {
+      circle = circles[i]
+      circle.addEventListener("click",()=>{
+        previewActive= handler_click_circles(circle,i) 
+      });
+
+
+    }
+      // cliquer la semaine activee
+      console.log("clicking the current week");
+      
+      document.addEventListener("DOMContentLoaded", () => {
+      // $(circles[start_week - 1]).click()
+      console.log(start_week)
+      previewActive=handler_click_circles(circles[start_week],start_week,0)
+      console.log("dom loaded");
+    })
+  </script>
+  {% endblock content %}

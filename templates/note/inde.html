@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Notes Popup</title>
+</head>
+<body>
+    <button class="popup-toggler">Voir les notes</button>
+    <div class="popup-container">
+        <div class="popup-content">
+            <h2>Mes Notes</h2>
+            <ul id="notes-list">
+                <!-- Les notes seront ajoutées ici dynamiquement -->
+            </ul>
+            <button class="popup-close">Fermer</button>
+        </div>
+    </div>
+<style>
+    .popup-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.popup-content {
+    background-color: #fff;
+    padding: 20px;
+    max-width: 400px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.popup-close {
+    margin-top: 10px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    background-color: #ccc;
+    cursor: pointer;
+}
+
+.popup-close:hover {
+    background-color: #aaa;
+}
+</style>
+    <script src="../static/note/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+    // Récupérer les notes via une requête AJAX
+    $.ajax({
+        url: 'note/get_notes/',  // URL de la vue pour récupérer les notes
+        method: 'GET',
+        success: function(response) {
+            // Mise à jour de la liste des notes
+            var noteList = $('#notes-list');
+            response.notes.forEach(function(note) {
+                noteList.append('<li>' + note.titre + '</li>');
+            });
+        },
+        error: function() {
+            console.log('Erreur lors de la récupération des notes');
+        }
+    });
+
+    // Ouvrir et fermer la fenêtre contextuelle
+    $('.popup-toggler').click(function() {
+        $('.popup-container').fadeIn();
+    });
+
+    $('.popup-close').click(function() {
+        $('.popup-container').fadeOut();
+    });
+});
+    </script>
+</body>
+</html>

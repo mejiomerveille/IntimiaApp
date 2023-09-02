@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Evolution du foetus</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Evolution du foetus</h1>
+        <div id="image-container">
+            <img src="./foetus1.jpg" id="foetus-image">
+            <div id="week-circles"></div>
+        </div>
+        <div id="text-container">
+            <p id="week-text">Semaine 1</p>
+            <p id="description-text">Description de la semaine 1</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <style>
+        .container {
+    text-align: center;
+}
+
+#image-container {
+    position: relative;
+    margin-top: 50px;
+}
+
+#foetus-image {
+    width: 500px;
+}
+
+#week-circles {
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.circle {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #a5a5a5;
+    margin: 0 10px;
+    cursor: pointer;
+}
+
+.circle.active {
+    background-color: #ff6600;
+}
+
+#text-container {
+    margin-top: 50px;
+}
+
+#week-text {
+    font-size: 24px;
+}
+
+#description-text {
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+    </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+    // Liste des descriptions des semaines de grossesse
+    var descriptions = [
+        "Description de la semaine 1",
+        "Description de la semaine 2",
+        "Description de la semaine 3",
+        // Ajouter les descriptions des autres semaines ici
+    ];
+
+    var circlesContainer = document.getElementById("week-circles");
+    var descriptionText = document.getElementById("description-text");
+
+    // Créer les cercles et ajouter les numéros de semaine
+    for (var i = 0; i < descriptions.length; i++) {
+        var circle = document.createElement("div");
+        circle.classList.add("circle");
+        circle.dataset.week = (i + 1).toString();
+
+        circle.addEventListener("click", function() {
+            // Mettre à jour l'image et le texte lorsqu'on clique sur un cercle
+            var week = this.dataset.week;
+            var foetusImage = document.getElementById("foetus-image");
+            var weekText = document.getElementById("week-text");
+
+            foetusImage.src = "foetus" + week + ".jpg";
+            weekText.innerText = "Semaine " + week;
+            descriptionText.innerText = descriptions[parseInt(week) - 1];
+
+            // Ajouter la classe "active" au cercle cliqué
+            var circles = document.getElementsByClassName("circle");
+            for (var j = 0; j < circles.length; j++) {
+                circles[j].classList.remove("active");
+            }
+            this.classList.add("active");
+        });
+
+        circlesContainer.appendChild(circle);
+    }
+});
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Suivi de Grossesse</title>
+  <style>
+    .semaine {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 30px;
+      height: 30px;
+      border: 1px solid black;
+      border-radius: 50%;
+      margin: 5px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Suivi de Grossesse</h1>
+  
+  <div id="semaineActuelle"></div>
+  
+  <div id="semaines">
+    <!-- Utilisez JavaScript pour générer les cercles de semaine -->
+  </div>
+  
+  <div id="images">
+    <!-- Utilisez JavaScript pour afficher les images en fonction de la semaine sélectionnée -->
+  </div>
+  
+  <div id="instructions">
+    <!-- Utilisez JavaScript pour afficher les blocs d'instructions en fonction de la semaine sélectionnée -->
+  </div>
+  
+  <script>
+    // JavaScript pour générer les cercles de semaine
+    
+    var semaineActuelle = new Date().getWeek(); // Obtenez la semaine actuelle
+    
+    document.getElementById("semaineActuelle").innerHTML = "Semaine actuelle : " + semaineActuelle;
+    
+    var semainesContainer = document.getElementById("semaines");
+    
+    for (var i = 1; i <= 41; i++) {
+      var semaine = document.createElement("div");
+      semaine.className = "semaine";
+      semaine.innerHTML = i;
+      
+      if (i === semaineActuelle) {
+        semaine.style.backgroundColor = "green";
+        semaine.style.color = "white";
+      }
+      
+      semainesContainer.appendChild(semaine);
+    }
+    
+    // JavaScript pour afficher les images en fonction de la semaine sélectionnée
+    
+    var imagesContainer = document.getElementById("images");
+    var images = [
+      { semaine: 12, src: "./foetus1.jpg", alt: "Image du fœtus" },
+      { semaine: 24, src: "./fruit1.jpg", alt: "Image d'un fruit" },
+      { semaine: 36, src: "./ventre.jpg", alt: "Image du ventre de la maman" }
+    ];
+    
+    semainesContainer.addEventListener("click", function(event) {
+      var semaineSelectionnee = event.target.innerHTML;
+      
+      imagesContainer.innerHTML = ""; // Effacez les images précédentes
+      
+      images.forEach(function(image) {
+        if (image.semaine == semaineSelectionnee) {
+          var img = document.createElement("img");
+          img.src = image.src;
+          img.alt = image.alt;
+          
+          imagesContainer.appendChild(img);
+        }
+      });
+    });
+    
+    // JavaScript pour afficher les blocs d'instructions en fonction de la semaine sélectionnée
+    
+    var instructionsContainer = document.getElementById("instructions");
+    var instructions = [
+      { semaine: 4, texte: "Prenez rendez-vous avec votre médecin pour votre premier suivi" },
+      { semaine: 12, texte: "Commencez à prendre des compléments alimentaires recommandés" },
+      { semaine: 28, texte: "Préparez votre valise pour la maternité" }
+    ];
+    
+    semainesContainer.addEventListener("click", function(event) {
+      var semaineSelectionnee = event.target.innerHTML;
+      
+      instructionsContainer.innerHTML = ""; // Effacez les instructions précédentes
+      
+      instructions.forEach(function(instruction) {
+        if (instruction.semaine == semaineSelectionnee) {
+          var blocInstruction = document.createElement("div");
+          blocInstruction.innerHTML = instruction.texte;
+          
+          instructionsContainer.appendChild(blocInstruction);
+        }
+      });
+    });
+    
+    // Fonction pour obtenir le numéro de semaine
+    Date.prototype.getWeek = function() {
+      var date = new Date(this.getTime());
+      date.setHours(0, 0, 0, 0);
+      date.setDate(date.getDate() + 3 - (date.getDay() + 6) % 7);
+      var week1 = new Date(date.getFullYear(), 0, 4);
+      return 1 + Math.round(((date - week1) / 86400000 - 3 + (week1.getDay() + 6) % 7) / 7);
+    };
+  </script>
+</body>
+</html>

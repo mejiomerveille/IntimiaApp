@@ -1,0 +1,144 @@
+{% extends "base.html" %}
+
+{% block title %}  {% endblock title %}
+
+{% block content %}
+        <!-- Carousel Start -->
+    {% load static %}
+    <style>
+        ul {
+            list-style-type: none;
+        }
+        
+        .emoji-symbol {
+            font-size: 30px;
+        }
+        
+        .symptome-popup {
+            position: relative;
+        }
+        
+        .symptome-popup .popup-content {
+            display: none;
+            position: absolute;
+            bottom: 30px;
+            left: 0;
+            width: 200px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 14px;
+        }
+        
+        .symptome-popup:hover .popup-content {
+            display: block;
+        }
+        
+        /* CSS pour l'échelle d'intensité */
+        .intensite {
+            margin-top: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .intensite input {
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+    
+						<!-- top nav -->
+						<!-- <div class="navbar navbar-blue navbar-static-top">   -->
+							<!-- <div class="navbar-header"> -->
+							<!-- </div> -->
+							<!-- <nav class="collapse navbar-collapse" role="navigation"> -->
+                                <div  class="">
+                                    <form class="navbar-form navbar-left">
+                                        <div class="input-group input-group-sm" style="max-width:360px;">
+                                          <input class="form-control" placeholder="Search" name="srch-term" id="srch-term" type="text">
+                                          <div class="input-group-btn">
+                                            <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                                          </div>
+                                        </div>
+                                    </form>
+                                </div>
+
+							<!-- </nav> -->
+						<!-- </div> -->
+						<!-- /top nav -->
+					  
+    <h1>  symptômes </h1>
+    
+    <!-- <h3>Symptômes pré-définis :</h3> -->
+
+    <ul>
+        <li class="symptome-popup">
+            <input type="checkbox" id="nausees" name="symptome" value="nausees">
+            <label for="nausees">Nausées <span class="emoji-symbol" aria-label="nausees">&#x1F922;</span>
+                <span class="popup-content">Description des nausées
+                    <div class="intensite">
+                        <span>Intensité :</span>
+                        <input type="range" min="1" max="10">
+                        <input type="text" value="0" size="1" readonly>
+                    </div>
+                </span>
+            </label>
+        </li>
+        <li class="symptome-popup">
+            <input type="checkbox" id="fatigue" name="symptome" value="fatigue">
+            <label for="fatigue">Fatigue <span class="emoji-symbol" aria-label="fatigue">&#x1F625;</span>
+                <span class="popup-content">Description de la fatigue
+                    <div class="intensite">
+                        <span>Intensité :</span>
+                        <input type="range" min="1" max="10">
+                        <input type="text" value="0" size="1" readonly>
+                    </div>
+                </span>
+            </label>
+        </li>
+        <li class="symptome-popup">
+            <input type="checkbox" id="maux_tete" name="symptome" value="maux_tete">
+            <label for="maux_tete">Maux de tête <span class="emoji-symbol" aria-label="maux_tete">&#x1F9E0;</span>
+                <span class="popup-content">Description des maux de tête
+                    <div class="intensite">
+                        <span>Intensité :</span>
+                        <input type="range" min="1" max="10">
+                        <input type="text" value="0" size="1" readonly>
+                    </div>
+                </span>
+            </label>
+        </li>
+        <li class="symptome-popup">
+            <input type="checkbox" id="tristesse" name="symptome" value="tristesse">
+            <label for="tristesse">Triste <span class="emoji-symbol" aria-label="tristesse">&#x1F623;</span>
+                <span class="popup-content">Description des maux de tête
+                    <div class="intensite">
+                        <span>Intensité :</span>
+                        <input type="range" min="1" max="10">
+                        <input type="text" value="0" size="1" readonly>
+                    </div>
+                </span>
+            </label>
+        </li>
+    </ul>
+    
+    <h3>Ajouter un symptôme :</h3>
+
+    <form method="POST" action="{% url 'enregistrer_symptome' %}">
+        {% csrf_token %}
+        <input type="text" name="symptome" placeholder="Ajouter un symptôme">
+        <button type="submit">Enregistrer</button>
+    </form>
+
+    <script>
+        document.querySelectorAll('.intensite input[type=range]').forEach(input => {
+            const display = input.nextElementSibling; // input[type=text]
+            input.addEventListener('input', () => {
+                display.value = input.value;
+            });
+        });
+    </script>
+  {% endblock content %}

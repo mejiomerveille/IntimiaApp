@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Calendrier</h1>
+<!-- Afficher le calendrier ici -->
+<br>
+<h2>Liste des rendez-vous déjà effectués :</h2>
+<ul>
+  {% for rendez_vous in rendez_vous_effectues %}
+    <li>{{ rendez_vous }}</li>
+  {% endfor %}
+</ul>
+{% endblock %}

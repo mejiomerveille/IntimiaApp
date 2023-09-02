@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suivi de grossesse</title>
+</head>
+<body>    
+  <style>
+    .semaine {
+      display: inline-block;
+      width: 40px;
+      height: 40px;
+      border: 2px solid black;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 40px;
+      margin-right: 5px;
+    }
+    .images {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+    .image {
+      width: 200px;
+      height: 200px;
+      border: 1px solid black;
+    }
+  </style>
+   <div>
+    <p>Semaine actuelle: <span id="semaineActuelle"></span></p>
+    <div id="semaines">
+      <!-- Les cercles représentant les semaines seront ajoutés ici dynamiquement -->
+    </div>
+    <div class="images">
+      <img id="foetus" class="image" src="./foetus1.jpg" alt="Image du fœtus">
+      <img id="fruit" class="image" src="./fruit1.jpg" alt="Image d'un fruit">
+      <img id="ventre" class="image" src="./Screenshot_20230813-133616.png" alt="Image du ventre de la maman">
+    </div>
+    <ul id="instructions">
+      <!-- Les blocs d'instructions seront ajoutés ici dynamiquement -->
+    </ul>
+  </div>
+
+  <script>
+    // Code JavaScript pour la gestion des semaines et des instructions
+
+    // Obtenir la semaine actuelle
+    var semaineActuelle = new Date().getWeek();
+    document.getElementById("semaineActuelle").innerText = semaineActuelle;
+
+    // Créer les cercles représentant les semaines
+    var semainesContainer = document.getElementById("semaines");
+    for (var i = 1; i <= 41; i++) {
+      var semaine = document.createElement("div");
+      semaine.className = "semaine";
+      semaine.innerText = i;
+      semainesContainer.appendChild(semaine);
+    }
+
+    // Gérer le clic sur une semaine
+    var semaines = document.getElementsByClassName("semaine");
+    for (var j = 0; j < semaines.length; j++) {
+      semaines[j].addEventListener("click", function() {
+        var semaineCliquee = this.innerText;
+        // Mettre à jour les images en fonction de la semaine cliquée
+        document.getElementById("foetus").src = "./foetus3_" + semaineCliquee + ".jpg";
+        document.getElementById("fruit").src = "./foetus3_" + semaineCliquee + ".jpg";
+        document.getElementById("ventre").src = "./foetus3_" + semaineCliquee + ".jpg";
+        // Mettre à jour les instructions en fonction de la semaine cliquée
+        document.getElementById("instructions").innerHTML = "<li>Instructions pour la semaine " + semaineCliquee + "</li>";
+      });
+    }
+
+    // Fonction pour obtenir le numéro de la semaine actuelle
+    Date.prototype.getWeek = function() {
+      var date = new Date(this.getFullYear(), 0, 1);
+      var weekNumber = Math.ceil(((this - date) / 86400000 + date.getDay() + 1) / 7);
+      return weekNumber;
+    };
+  </script>
+</body>
+</html>

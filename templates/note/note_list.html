@@ -1,0 +1,21 @@
+{% for n in notes %}
+<div class="note">
+  <h3 class="ob">{{ n.titre }}</h3>
+  <p class="ob">{{ n.objet }}</p>
+  <a href="{% url 'edit_note' n.id %}">Modifier</a>
+  <a href="{% url 'delete_note' n.id %}">Supprimer</a>
+</div>
+{% empty %}
+  <p>Aucune note disponible.</p>
+{% endfor %}
+<a href="{% url 'create_note' %}">Créer une nouvelle note</a>
+<style>
+  .note{
+    background-color: gray;
+    border-radius: 20px ;
+  }
+  .ob{
+    position: relative;
+    left: 10px;
+  }
+</style>

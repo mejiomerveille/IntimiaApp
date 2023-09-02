@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Calendrier des rendez-vous</h1>
+    <div id="calendar">
+        <!-- Afficher le calendrier ici -->
+    </div>
+    
+    <h2>Rendez-vous prévus</h2>
+    <ul>
+        {% for appointment in appointments %}
+            <li>{{ appointment.date|date:"d/m/Y" }} - {{ appointment.doctor.name }}</li>
+        {% empty %}
+            <li>Aucun rendez-vous prévu</li>
+        {% endfor %}
+    </ul>
+
+    <a href="{% url 'add_appointment' %}">Ajouter un rendez-vous</a>
+{% endblock %}

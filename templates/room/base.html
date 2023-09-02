@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %} DjangoChat</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
+    <script src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
+
+    <style>
+        .chat-messages{
+            height: 400px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body class="bg-blue-400">
+
+    <nav class="flex items-center justify-between px-4 py-6 bg-blue-600">
+
+        <div>
+            <a href="/" class="text-xl text-white"> Intimia </a>
+        </div>
+
+        <div class="flex items-center space-x-4">
+            {% if request.user.is_authenticated %}
+            <a href="#" class="px-20 text-white">Salut {{ request.user.username }}</a>
+
+            <a href="/rooms/" class="text-white hover:text-gray-200">Groupes de discussions</a>
+
+            <a href="/logout/" class="px-5 py-3 rounded-xl bg-orange-500 text-white hover:bg-orange-700">Deconnexion</a>
+
+            {% else %}
+            <a href="/login/" class="text-white hover:text-gray-200">Connexion</a>
+            <a href="/signup/" class="px-5 py-3 rounded-xl bg-orange-500 text-white hover:bg-orange-700">S'inscrire</a>
+            {% endif %}
+        </div>
+    </nav>
+
+   {% block content %}
+    {% endblock %}    
+
+   {% block scripts %}
+   {% endblock %}  
+</body>
+</html>

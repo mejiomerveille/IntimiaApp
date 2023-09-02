@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}  {% endblock title %}
+
+{% block content %}
+        <!-- Carousel Start -->
+    {% load static %}
+    
+    <form method="POST">
+        {% csrf_token %}
+        <div class="mb-5">
+            <label class="text-black"  for="start_date"> date de debut de grossesse</label>
+    
+            <input type="date" id="start_date" name="start_date" class="w-full mt-2 px-4 py-2 rounded-xl">
+        </div>
+      
+        <!-- <input type="text"> -->
+    <!-- {{ form.as_p }} -->
+    <button type="submit">Enregistrer</button>
+  </form>
+  
+  
+  
+  {% endblock content %}

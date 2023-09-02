@@ -1,0 +1,5 @@
+<p>Voulez-vous vraiment supprimer la note "{{ note.title }}"?</p>
+<form method="POST">
+  {% csrf_token %}
+  <button type="submit">Supprimer</button>
+</form>

@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Ajouter un rendez-vous</h1>
+    <form method="post" action="{% url 'add_appointment' %}">
+        {% csrf_token %}
+        <label for="doctor">Nom du médecin:</label>
+        <select name="doctor" id="doctor">
+            {% for doctor in doctors %}
+                <option value="{{ doctor.id }}">{{ doctor.name }}</option>
+            {% endfor %}
+        </select><br><br>
+
+        <label for="date">Date:</label>
+        <input type="date" name="date" required><br><br>
+
+        <label for="time">Heure:</label>
+        <input type="time" name="time" required><br><br>
+
+        <label for="weight">Poids de la mère:</label>
+        <input type="number" name="weight" required><br><br>
+
+        <label for="notes">Notes:</label>
+        <textarea name="notes" required></textarea><br><br>
+
+        <input type="submit" value="Enregistrer">
+    </form>
+{% endblock %}

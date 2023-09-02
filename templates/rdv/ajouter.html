@@ -1,0 +1,11 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Ajouter un rendez-vous</h1>
+<form method="POST" action="{% url 'ajouter' %}">
+  {% csrf_token %}
+  <!-- Formulaire pour ajouter un rendez-vous -->
+  <input type="submit" value="Enregistrer">
+</form>
+{% endblock %}

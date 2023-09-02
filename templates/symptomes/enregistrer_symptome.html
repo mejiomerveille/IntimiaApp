@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Enregistrer un symptôme</title>
+    <style>
+        /* Votre CSS personnalisé pour le formulaire */
+    </style>
+</head>
+<body>
+    <h1>Enregistrer un symptôme</h1>
+
+    <form method="POST" action="{% url 'enregistrer_symptome' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Enregistrer</button>
+    </form>
+
+    <script>
+        // Votre code JavaScript personnalisé si nécessaire
+    </script>
+</body>
+</html>
